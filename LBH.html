@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>이병헌 메인 배너</title>
+    <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+
+        var idx = 0;
+        $('.banner li').eq(idx).addClass('on').fadeIn()
+        buttonOn()
+
+        $('.control button').click(function(){
+            idx = $(this).index()
+            $('.banner li').eq(idx).addClass('on').fadeIn()
+            .siblings().removeClass('on').fadeOut()
+            $('.control button').eq(idx).addClass('on')
+            .siblings().removeClass('on')
+        })  // .control button click function end
+
+        function goStop(){
+            idx = $('.banner li.on').index()
+            $('.banner li').eq(idx).removeClass('on').fadeOut()
+            .next().addClass('on').fadeIn()
+            idx++
+
+            if(idx == $('.banner li').length){
+                idx = 0;
+                $('.banner li').eq(idx).addClass('on').fadeIn()
+            }
+        }  // goStop() end
+
+        function buttonOn(){
+            var match = $('.banner li.on').index()
+            $('.control button').eq(match).addClass('on')
+            .siblings().removeClass('on')
+        } // buttonOn() end
+
+        var cycle = setInterval(function(){
+                goStop()
+                buttonOn()
+        }, 1000)
+
+        $('#mainBanner').hover(function(){
+            clearInterval(cycle)
+        },
+        function(){
+            cycle = setInterval(function(){
+                goStop()
+                buttonOn()
+            }, 1000)
+        })  // goStop(), buttonOn() Intervals end
+
+    })
+    </script>
+
+    <style>
+
+    /*reset*/
+    *{margin:0; padding:0}
+    ul, ol{list-style:none}
+    a{text-decoration:none; color: black;}
+    fieldset{border: 0 none;}
+    img{vertical-align: top;}
+    legend{text-indent: -9999px; position: absolute; left: -9999px; top: -9999px; font-size: 0;}
+    html, body{height: 100%;}
+
+    /*layout*/
+    #header{width:100%; height:80px; background-color: #43351C;}
+    #gnb{width:100%; height: 39px; border-bottom: 1px grey solid;}
+
+    /*header detail*/
+    #header .wrap{width: 1100px; height:80px; margin: 0 auto;}
+    #header .wrap .headerL{float: left}
+    #header .wrap .headerR{float: right;}
+    #header .wrap .headerL h1{margin-top: 25px}
+    #header .wrap .headerR ul{margin-top: 20px;}
+    #header .wrap .headerR ul li{float: left; margin-left: 25px;}
+    #header .wrap .headerR ul li a{font-size: 12px; color: #B7B7B7;}
+
+    /*gnd detail*/
+    #gnb ul{height: 39px; width: 1100px; margin: 0 auto;}
+    #gnb ul li{float: left; margin-left: 85px;}
+    #gnb ul li a{font-size: 16px; line-height: 39px;}
+
+    /*mainBanner detail*/
+    #mainBanner .banner{width: 100%; height: 430px;}
+    #mainBanner .banner ul{width: 100%; height: 430px; margin: 0 auto; position: relative;}
+    #mainBanner .banner ul li{width: 100%; height: 430px; position: absolute; display: none; text-align: center;}
+    #mainBanner .banner ul li:first-child{background:#D0D0CE}
+    #mainBanner .banner ul li:first-child+li{background:#B7B9B8}
+    #mainBanner .banner ul li:first-child+li+li{background:#061823}
+    #mainBanner .banner ul li img{width: 1100px;}
+    #mainBanner .control{position: relative; text-align: center;}
+    #mainBanner .control button{display: inline-block; width: 20px; height: 20px; color: white; text-indent: -9999px; border: 0 none; background-color: transparent;
+                                background-image: url("off.png"); background-repeat: no-repeat; margin: 0 4px; position: relative; top: -30px; cursor: pointer;}
+    #mainBanner .control button.on{background-image: url("on.png"); background-repeat: no-repeat;}
+
+    </style>
+</head>
+<body>
+
+    <header id="header">
+
+        <div class="wrap">
+            <div class="headerL">
+                <h1><a href="#"><img src="http://www.leebyunghun.kr/html/images/common/logo.png" alt="이병헌 로고"></a></h1>
+            </div>
+            <div class="headerR">
+                <ul>
+                    <li><a href="#">LOGIN</a></li>
+                    <li><a href="#">JOIN</a></li>
+                    <li><a href="#">SEARCH ID/PW</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </header>
+
+    <div id="gnb">
+        <ul>
+            <li><a href="#">PROFILE</a></li>
+            <li><a href="#">FILMOGRAPHY</a></li>
+            <li><a href="#">GALLERY</a></li>
+            <li><a href="#">NEWS</a></li>
+            <li><a href="#">COMMUNITY</a></li>
+            <li><a href="#">REBEURS</a></li>
+        </ul>
+    </div>
+
+    <content id="mainBanner">
+        <div class="banner">
+            <ul>
+                <li>
+                    <img src="http://www.leebyunghun.kr/html/images/main/add_img01.jpg" alt="이병헌 배너1">
+                </li>
+                <li>
+                    <img src="http://www.leebyunghun.kr/html/images/main/add_img02.jpg" alt="이병헌 배너2">
+                </li>
+                <li>
+                    <img src="http://www.leebyunghun.kr/html/images/main/add_img03.jpg" alt="이병헌 배너3">
+                </li>
+            </ul>
+        </div>
+        <div class="control">
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+        </div>
+    </content>
+
+</body>
+</html>
